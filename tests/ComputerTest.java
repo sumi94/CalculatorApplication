@@ -1,4 +1,6 @@
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 
 import static org.junit.Assert.assertEquals;
@@ -34,6 +36,13 @@ public class ComputerTest {
         assertEquals(0.0, computer.cancel(), 0.2);
     }
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
-
+    @Test
+    public void shouldThrowArithmeticExceptionWhenDividedByZero() {
+        expectedException.expect(ArithmeticException.class);
+        Computer computer = new Computer(4);
+        computer.divide(0);
+    }
 }

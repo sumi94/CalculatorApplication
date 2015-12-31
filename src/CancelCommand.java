@@ -1,7 +1,12 @@
 public class CancelCommand implements Command{
 
+    private int numOfTimesCalled;
+
     @Override
-    public double calculate(Computer computer) {
+    public double calculate(Computer computer, CalculatorCache calculatorCache) {
+        if(numOfTimesCalled == 0)
+            calculatorCache.addToHistory(this);
+        numOfTimesCalled++;
 
         return computer.cancel();
     }

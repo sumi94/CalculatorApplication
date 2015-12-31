@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,8 @@ public class CommandParser {
     public Command parse(String command) {
         String []expression={""}; String operation=""; double operand=0;
         if(command.equals("cancel")){
-            return new CancelCommand();
+            CancelCommand cancelCommand = new CancelCommand();
+            return cancelCommand;
         }
         if (command.contains(" ")) {
             expression = command.split(" ");
@@ -27,13 +29,20 @@ public class CommandParser {
         }
 
         if(operation.equals("add")){
-            return new AddCommand(operand);
+            AddCommand addCommand = new AddCommand(operand);
+            return addCommand;
         }else if(operation.equals("subtract")){
-            return new SubtractCommand(operand);
+            SubtractCommand subtractCommand = new SubtractCommand(operand);
+            return subtractCommand;
         }else if(operation.equals("multiply")){
-            return new MultiplyCommand(operand);
+            MultiplyCommand multiplyCommand = new MultiplyCommand(operand);
+            return multiplyCommand;
         }else if(operation.equals("divide")){
-            return new DivideCommand(operand);
+            DivideCommand divideCommand = new DivideCommand(operand);
+            return divideCommand;
+        }
+        else if(operation.equals("repeat")){
+            return new RepeatCommand(operand);
         }
         return null;
     }

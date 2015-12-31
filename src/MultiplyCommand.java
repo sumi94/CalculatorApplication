@@ -1,13 +1,15 @@
 public class MultiplyCommand implements Command{
     private double operand;
-
+    private int numOfTimesCalled;
     public MultiplyCommand(double operand) {
         this.operand = operand;
     }
 
     @Override
-    public double calculate(Computer computer) {
-
+    public double calculate(Computer computer, CalculatorCache calculatorCache) {
+        if(numOfTimesCalled == 0)
+            calculatorCache.addToHistory(this);
+        numOfTimesCalled++;
         return computer.multiply(operand);
     }
 

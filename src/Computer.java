@@ -24,6 +24,9 @@ public class Computer {
     }
 
     public double divide(double inputNumber) {
+        if(inputNumber == 0){
+            throw new ArithmeticException();
+        }
         accumulator /= inputNumber;
         return accumulator;
     }

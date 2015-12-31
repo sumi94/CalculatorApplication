@@ -1,3 +1,3 @@
 public interface Command {
-    public double calculate(Computer computer);
+    public double calculate(Computer computer, CalculatorCache calculatorCache);
 }

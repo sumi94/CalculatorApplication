@@ -1,6 +1,9 @@
+import junit.framework.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static junit.framework.Assert.assertNull;
 import static junit.framework.TestCase.assertEquals;
@@ -42,4 +45,33 @@ public class ParserTest {
         assertEquals(new CancelCommand(),parser.parse("cancel"));
 
     }
+
+    @Test
+    public void parseRepeat1CommandAfterExecuting1Command() {
+        CommandParser parser = new CommandParser();
+        parser.parse("cancel");
+
+        List<Command> commands = new ArrayList<Command>(){{
+        add(new CancelCommand());
+        }
+        };
+        assertEquals(new RepeatCommand(1), parser.parse("repeat 1"));
+    }
+
+    @Test
+    public void parseRepeat2CommandAfterExecuting4Commands() {
+        CommandParser parser = new CommandParser();
+        parser.parse("add 1");
+        parser.parse("add 2");
+        parser.parse("add 3");
+        parser.parse("add 4");
+
+        List<Command> commands = new ArrayList<Command>(){{
+            add(new AddCommand(3));
+            add(new AddCommand(4));
+        }
+        };
+        assertEquals(new RepeatCommand(2), parser.parse("repeat 2"));
+    }
+
 }

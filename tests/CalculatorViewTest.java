@@ -19,7 +19,7 @@ public class CalculatorViewTest {
         PrintStream output = new PrintStream(stream);
         CalculatorView calculatorView = new CalculatorView(new Scanner(""),output);
         calculatorView.printOutput("Hello");
-        assertEquals("Hello", stream.toString());
+        assertEquals("Hello\n", stream.toString());
 
     }
 }

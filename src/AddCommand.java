@@ -1,6 +1,7 @@
 public class AddCommand implements Command{
 
     private double operand;
+    private int numOfTimesCalled;
 
     public AddCommand(double operand) {
 
@@ -25,8 +26,10 @@ public class AddCommand implements Command{
     }
 
     @Override
-    public double calculate(Computer computer) {
-
+    public double calculate(Computer computer, CalculatorCache calculatorCache) {
+        if(numOfTimesCalled == 0)
+            calculatorCache.addToHistory(this);
+        numOfTimesCalled++;
         return computer.add(operand);
     }
 }

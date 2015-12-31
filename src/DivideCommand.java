@@ -1,12 +1,16 @@
 public class DivideCommand implements Command {
     private double operand;
+    private int numOfTimesCalled;
 
     public DivideCommand(double operand) {
         this.operand = operand;
     }
 
     @Override
-    public double calculate(Computer computer) {
+    public double calculate(Computer computer, CalculatorCache calculatorCache) {
+        if(numOfTimesCalled == 0)
+            calculatorCache.addToHistory(this);
+        numOfTimesCalled++;
 
         return computer.divide(operand);
     }

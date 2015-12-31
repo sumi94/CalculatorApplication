@@ -1,18 +1,23 @@
-public class SubtractCommand implements Command {
-    private double operand;
-    private int numOfTimesCalled;
+import java.util.List;
 
-    public SubtractCommand(double operand) {
+public class RepeatCommand implements Command{
+
+
+    private double operand;
+
+    public RepeatCommand(double operand) {
+
         this.operand = operand;
     }
 
     @Override
     public double calculate(Computer computer, CalculatorCache calculatorCache) {
-        if(numOfTimesCalled == 0)
-            calculatorCache.addToHistory(this);
-        numOfTimesCalled++;
-
-        return computer.subtract(operand);
+        double result = 0;
+        List<Command> commands = calculatorCache.getLastNCommands((int)operand);
+        for(Command command: commands){
+            result = command.calculate(computer, calculatorCache);
+        }
+        return result;
     }
 
     @Override
@@ -20,7 +25,7 @@ public class SubtractCommand implements Command {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SubtractCommand that = (SubtractCommand) o;
+        RepeatCommand that = (RepeatCommand) o;
 
         return Double.compare(that.operand, operand) == 0;
 
